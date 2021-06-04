@@ -2,7 +2,8 @@ from student.models import Student
 from rest_framework import serializers
 
 
-class StudentSerializer(serializers.HyperlinkedModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'phone_number']
+        fields = "__all__"

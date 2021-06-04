@@ -35,8 +35,8 @@ urlpatterns = [
     path(r'instructors/<int:pk>/', InstructorViewSet.as_view()),
     path(r'students/', StudentViewSet.as_view()),
     path(r'students/<int:pk>/', StudentViewSet.as_view()),
-    # path(r'sessions/', Sessions.as_view()),
-    # path('sessions/<pk>/', SessionDetail.as_view())
+    path(r'sessions/', Sessions.as_view()),
+    path(r'sessions/<int:pk>/', Sessions.as_view())
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

@@ -19,14 +19,11 @@ from rest_framework import routers
 from backend import views
 from instructor.views import InstructorViewSet
 from student.views import StudentViewSet
-from session.views import SessionApiView
+from session.views import Sessions
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'instructors', InstructorViewSet)
-router.register(r'students', StudentViewSet)
-# router.register(r'sessions', SessionApiView.as_view(), basename='Session')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -34,5 +31,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('sessions/', SessionApiView.as_view())
+    path(r'instructors/', InstructorViewSet.as_view()),
+    path(r'instructors/<int:pk>/', InstructorViewSet.as_view()),
+    # path(r'student/', StudentViewSet.as_view()),
+    # path(r'sessions/', Sessions.as_view()),
+    # path('sessions/<pk>/', SessionDetail.as_view())
 ]
+
+# urlpatterns = format_suffix_patterns(urlpatterns)

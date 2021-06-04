@@ -11,11 +11,13 @@ class InstructorViewSet(APIView):
     def get(self, request, pk=None, format=None):
         if pk is None:
             snippets = Instructor.objects.all()
-            serializer = InstructorSerializer(snippets, many=True, context={'request': request})
+            serializer = InstructorSerializer(
+                snippets, many=True, context={"request": request}
+            )
         else:
             print(pk)
             snippets = get_object_or_404(Instructor.objects.all(), pk=pk)
-            serializer = InstructorSerializer(snippets, context={'request': request})
+            serializer = InstructorSerializer(snippets, context={"request": request})
         return Response(serializer.data)
 
     def post(self, request, format=None):

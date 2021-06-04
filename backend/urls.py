@@ -33,7 +33,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r'instructors/', InstructorViewSet.as_view()),
     path(r'instructors/<int:pk>/', InstructorViewSet.as_view()),
-    # path(r'student/', StudentViewSet.as_view()),
+    path(r'students/', StudentViewSet.as_view()),
+    path(r'students/<int:pk>/', StudentViewSet.as_view()),
     # path(r'sessions/', Sessions.as_view()),
     # path('sessions/<pk>/', SessionDetail.as_view())
 ]

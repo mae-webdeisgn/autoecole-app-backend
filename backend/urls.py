@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from backend import views
-from instructor.views import InstructorViewSet
-from student.views import StudentViewSet
+from users.views import InstructorAPIView
+from users.views import StudentAPIView
 from session.views import Sessions
 
 router = routers.DefaultRouter()
@@ -31,10 +31,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path(r'instructors/', InstructorViewSet.as_view()),
-    path(r'instructors/<int:pk>/', InstructorViewSet.as_view()),
-    path(r'students/', StudentViewSet.as_view()),
-    path(r'students/<int:pk>/', StudentViewSet.as_view()),
+    path(r'instructors/', InstructorAPIView.as_view()),
+    path(r'instructors/<int:pk>/', InstructorAPIView.as_view()),
+    path(r'students/', StudentAPIView.as_view()),
+    path(r'students/<int:pk>/', StudentAPIView.as_view()),
     path(r'sessions/', Sessions.as_view()),
     path(r'sessions/<int:pk>/', Sessions.as_view())
 ]

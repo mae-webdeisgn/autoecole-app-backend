@@ -1,8 +1,11 @@
+from django.db.models.deletion import CASCADE
+from organization.models import Organization
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 from django.utils import timezone
+from users.constants import TypeActor
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -56,9 +59,19 @@ class User(AbstractBaseUser):
     admin = models.BooleanField(default=False) # a superuser
     objects = UserManager()
     date_joined = models.DateTimeField(default=timezone.now)
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    phone = models.CharField(max_length=14)
+    firstname = models.CharField(max_length=50, default="")
+    lastname = models.CharField(max_length=50, default="")
+    phone = models.CharField(max_length=14, default="")
+    street = models.CharField(max_length=75, default="")
+    city = models.CharField(max_length=75, default="")
+    postalcode = models.CharField(max_length=7, default="")
+    country = models.CharField(max_length=30, default="")
+    birthday = models.DateField(null=True)
+    bio = models.CharField(max_length=150, default="")
+    is_student = models.BooleanField(default= False)
+    is_instructor = models.BooleanField(default= False)
+    is_org_admin = models.BooleanField(default= False)
+    organization_id = models.ForeignKey(Organization, on_delete=CASCADE, null=True)
 
     # notice the absence of a "Password field", that is built in.
 

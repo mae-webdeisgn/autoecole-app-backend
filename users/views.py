@@ -23,7 +23,7 @@ class StudentAPIView(APIView):
 
     def post(self, request, format=None):
         serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -32,7 +32,7 @@ class StudentAPIView(APIView):
     def put(self, request, pk=None, format=None):
         instance = get_object_or_404(User.objects.filter(pk=pk))
         serializer = StudentSerializer(instance=instance, data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -41,7 +41,7 @@ class StudentAPIView(APIView):
     def delete(self, request, pk, format=None):
         instance = get_object_or_404(User.objects.filter(pk=pk))
         serializer = StudentSerializer(instance=instance, data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -61,7 +61,7 @@ class InstructorAPIView(APIView):
 
     def post(self, request, format=None):
         serializer = InstructorSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -70,7 +70,7 @@ class InstructorAPIView(APIView):
     def put(self, request, pk, format=None):
         instance = get_object_or_404(User.objects.all(), pk=pk)
         serializer = InstructorSerializer(instance=instance, data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

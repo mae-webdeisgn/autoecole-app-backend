@@ -7,7 +7,6 @@ from organization.models import Organization
 # Create your models here.
 class Session(models.Model):
     start_date = models.DateTimeField(null=False)
-    end_date = models.DateTimeField(null=False)
     location = models.CharField(max_length=75, blank=True, null=True)
     instructor_id = models.ForeignKey(User, related_name="instructor_id", on_delete=models.CASCADE)
     student_id = models.ForeignKey(User, related_name="student_id", on_delete=models.CASCADE)

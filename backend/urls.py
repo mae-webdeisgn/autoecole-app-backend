@@ -20,6 +20,7 @@ from backend import views
 from users.views import InstructorAPIView
 from users.views import StudentAPIView
 from session.views import Sessions
+from schedule.views import Schedules
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -36,7 +37,8 @@ urlpatterns = [
     path(r'students/', StudentAPIView.as_view()),
     path(r'students/<int:pk>/', StudentAPIView.as_view()),
     path(r'sessions/', Sessions.as_view()),
-    path(r'sessions/<int:pk>/', Sessions.as_view())
+    path(r'sessions/<int:pk>/', Sessions.as_view()),
+    path(r'schedules/<int:pk>/<str:day>/', Schedules.as_view()),
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

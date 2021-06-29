@@ -62,7 +62,7 @@ class User(AbstractBaseUser):
     firstname = models.CharField(max_length=50, default="")
     lastname = models.CharField(max_length=50, default="")
     phone = models.CharField(max_length=14, default="")
-    street = models.CharField(max_length=75, default="")
+    address = models.CharField(max_length=150, default="")
     city = models.CharField(max_length=75, default="")
     postalcode = models.CharField(max_length=7, default="")
     country = models.CharField(max_length=30, default="")

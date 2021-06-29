@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from session.models import Session
-from session.serializers import SessionSerializer
+from session.serializers import SessionSerializer, SessionSerializerGet
 from django.http import Http404
 
 
@@ -12,12 +12,12 @@ class Sessions(APIView):
     def get(self, request, pk=None):
         if pk is None:
             instances = Session.objects.all()
-            serializer = SessionSerializer(
+            serializer = SessionSerializerGet(
                 instances, many=True, context={"request": request}
             )
         else:
             instances = get_object_or_404(Session.objects.filter(pk=pk))
-            serializer = SessionSerializer(instances, context={"request": request})
+            serializer = SessionSerializerGet(instances, context={"request": request})
         return Response(serializer.data)
 
     def post(self, request):

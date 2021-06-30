@@ -2,21 +2,49 @@ version: "3.3"
    
 services:
   db:
-    image: postgres
+    image: postgres:13
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/usr/src/app
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - default
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+        - pgadmin:/root/.pgadmin
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - default
+    restart: unless-stopped
+    
+
+  # web:
+  #   build: ./web
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   volumes:
+  #     - .:/usr/src/app
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - postgres
+
+volumes:
+  db-data:
+  pgadmin:
